@@ -1,50 +1,40 @@
 let seconds = 0;
-let timerInterval;//intervales de secondes
-let timerStarted = false; //évite de relancer plusieurs fois
+let timerInterval; // Intervales de secondes
+let timerStarted = false; // Évite de relancer plusieurs fois
 
-// On démarre le timer
-
-function startTimer(){ //ma fonction qui démarre le timer
+// Fonction qui démarre le timer
+function startTimer() {
     timerInterval = setInterval(() => {
-        seconds++; //j'incrémente les secondes du coup ^^
-        document.getElementById("timer").textContent = `Temps : ${seconds}s`; //C'est quoi le nom de l'id dans le dom ?
+        seconds++; // J'incrémente les secondes
+        document.getElementById("timer").textContent = `Temps : ${seconds}s`;
     }, 1000);
-
-
-
 }
 
-// J'arrête le timer
+// Fonction qui arrête le timer
+function stopTimer() {
+    clearInterval(timerInterval);
+}
 
-function stopTimer(){ //ma fonction qui arrête le timer
-
-    clearInterval(timerInterval); //j'efface le timer
-
-
-    // Gestion du clic pour démarrer le timer
-
+// Gestion du clic pour démarrer le timer
+document.addEventListener("DOMContentLoaded", () => {
     const timerElement = document.getElementById("timer");
-    timerElement.addEventListener("click", () => { //active le clic
-        console.log("imer clickayy!");
-        if (!timerStarted) { //Empêche de relancer le timer si démarrer
-            startTimer();
-            timerStarted = true; // Le définie sur démarrer
-            timerElement.style.cursor = "default"; //change le curseur unefois démarrer
-        }
-    });
-
-
-    //Verifier si le jeu est terminé
-
-    function checkGameEnd() {
-
-        const matchedCards = document.querySelectorAll('.matched');
-        if (matchedCards.length === cardsArray.length) { 
-            stopTimer();
-            alert('Félicitation le jeu est terminé le noob en ${seconds} secondes.');
-        }
+    if (timerElement) {
+        timerElement.addEventListener("click", () => {
+            console.log("Timer démarré !");
+            if (!timerStarted) {
+                startTimer();
+                timerStarted = true;
+                timerElement.style.cursor = "default";
+            }
+        });
     }
+});
 
-    
-
+// Vérifie si le jeu est terminé
+function checkGameEnd() {
+    const matchedCards = document.querySelectorAll('.matched');
+    if (matchedCards.length === cardsArray.length) {
+        stopTimer();
+        alert(`Félicitations ! Le jeu est terminé en ${seconds} secondes.`);
+    }
 }
