@@ -7,7 +7,7 @@ let timerStarted = false; //évite de relancer plusieurs fois
 function startTimer(){ //ma fonction qui démarre le timer
     timerInterval = setInterval(() => {
         seconds++; //j'incrémente les secondes du coup ^^
-        document.getElementById("timer?").textContent = `Temps : ${seconds}s`; //C'est quoi le nom de l'id dans le dom ?
+        document.getElementById("timer").textContent = `Temps : ${seconds}s`; //C'est quoi le nom de l'id dans le dom ?
     }, 1000);
 
 
@@ -25,6 +25,7 @@ function stopTimer(){ //ma fonction qui arrête le timer
 
     const timerElement = document.getElementById("timer");
     timerElement.addEventListener("click", () => { //active le clic
+        console.log("imer clickayy!");
         if (!timerStarted) { //Empêche de relancer le timer si démarrer
             startTimer();
             timerStarted = true; // Le définie sur démarrer
@@ -44,7 +45,6 @@ function stopTimer(){ //ma fonction qui arrête le timer
         }
     }
 
-
+    
 
 }
-
