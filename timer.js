@@ -59,7 +59,7 @@ function createCards() {
             card.classList.toggle("flipped");
             // Il faudra appeler la logique de vérification ici , checkformath ? ETc que sais je... 
         })
-    }
+    })
 }
 
 // Maintenant j'appel la fonction d'affichage des cartes du jeu
