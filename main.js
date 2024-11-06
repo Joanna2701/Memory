@@ -1,5 +1,6 @@
 let container_cards = document.querySelector("#container_cards");
 let cardVisible= [];
+let startGameBtn = document.querySelector("#startGame");
 const arrSrc = [
   "./img/batte.png",
   "./img/bonbons.png",
@@ -80,6 +81,28 @@ let container = document.querySelector("#container_cards");
 const cards = container.querySelectorAll("div");
 
 // Evenement au clic
+// for (let card of cards) {
+//   card.addEventListener("click", function () {
+//     let index = card.getAttribute("data-id");
+
+//     if (card.classList.contains("card")) return;
+ 
+//       card.style.backgroundImage = `url(${arrSrc[index]})`;
+//       card.classList.remove("back_card");
+//       card.classList.add("card");
+//       compareCards(card);
+
+//   });
+// }
+
+startGameBtn.addEventListener('click',function() {
+  // Evenement au clic
+  cards.forEach(card=> {
+    card.style.backgroundImage = "";
+    card.classList.remove("card");
+    card.classList.add("back_card");
+  })
+
 for (let card of cards) {
   card.addEventListener("click", function () {
     let index = card.getAttribute("data-id");
@@ -91,15 +114,9 @@ for (let card of cards) {
       card.classList.add("card");
       compareCards(card);
 
-///////////////////////////////////////////////////////////////////////////
-
-
-
-
-///////////////////////////////////////////////////////////////////////////
-
   });
 }
+})
 
 // On affiche les cartes au clic
 //test timer
