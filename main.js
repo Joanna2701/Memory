@@ -1,4 +1,5 @@
 let container_cards = document.querySelector("#container_cards");
+let cardVisible= [];
 const arrSrc = [
   "./img/batte.png",
   "./img/bonbons.png",
@@ -41,8 +42,38 @@ function shuffleArr(arr) {
   return arr;
 }
 
+/**
+ * 
+ */
+function compareCards(card) {
+  cardVisible.push(card);
+
+if (cardVisible.length === 2) {
+  const [firstCard, secondCard] = cardVisible;
+
+  if (firstCard.style.backgroundImage === secondCard.style.backgroundImage) {
+    firstCard.pointerEvents = "none";
+    secondCard.pointerEvents = "none";
+
+    cardVisible= [];
+  }
+}
+else if(cardVisible.length === 3) {
+  const [firstCard, secondCard] = cardVisible;
+
+  firstCard.style.backgroundImage = "";
+  firstCard.classList.remove("card");
+  firstCard.classList.add("back_card");
+
+  secondCard.style.backgroundImage = "";
+  secondCard.classList.remove("card");
+  secondCard.classList.add("back_card");
+
+  cardVisible = [card];
+}
+}
+
 const newArr = shuffleArr(arrSrc);
-console.log(newArr);
 createCard(newArr);
 
 let container = document.querySelector("#container_cards");
@@ -53,15 +84,20 @@ for (let card of cards) {
   card.addEventListener("click", function () {
     let index = card.getAttribute("data-id");
 
-    if (card.classList.contains("card")) {
-      card.style.backgroundImage = `url('')`;
-      card.classList.remove("card");
-      card.classList.add("back_card");
-    } else {
+    if (card.classList.contains("card")) return;
+ 
       card.style.backgroundImage = `url(${arrSrc[index]})`;
       card.classList.remove("back_card");
       card.classList.add("card");
-    }
+      compareCards(card);
+
+///////////////////////////////////////////////////////////////////////////
+
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
   });
 }
 
