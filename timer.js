@@ -28,7 +28,7 @@ const gamerBoard = document.querySelector(".container_cards");
 function createCards() {
     cardsArray.forEach((src) =>{
         //Element carte crée
-        const card= document.creataeElement("div");
+        const card= document.createElement("div");
         card.classList.add("card");
 
 
