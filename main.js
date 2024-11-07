@@ -133,19 +133,20 @@ function compareCards(card) {
 
 // Début du jeu //
 displayPlayerSorted(arrPlayers);
-const newArr = shuffleArr(arrSrc);
-createCard(newArr);
+createCard(arrSrc);
 
 startGameBtn.addEventListener("click", function () {
   stopTimer();
-  timerInterval = 0;
+  seconds = 0;
   timer.textContent = 0;
+  totalCardVisible = 0;
+  scores = 0;
 
-  cards.forEach((card) => {
-    card.style.backgroundImage = "";
-    card.classList.remove("card");
-    card.classList.add("back_card");
-  });
+  container_cards.innerHTML = "";
+  const newArr = shuffleArr(arrSrc);
+  createCard(newArr);
+
+  const cards = container_cards.querySelectorAll("div");
 
   textScores.textContent = 0;
   startTimer();
