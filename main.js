@@ -11,6 +11,7 @@ let scores = 0;
 let textScores = document.querySelector("#scores");
 let container = document.querySelector("#container_cards");
 const cards = container.querySelectorAll("div");
+const tbody = document.querySelector("#tbody");
 
 const arrSrc = [
   "./img/batte.png",
@@ -26,6 +27,29 @@ const arrSrc = [
   "./img/cyclope.png",
   "./img/monstre.png",
 ];
+
+const arrPlayers = [
+  { pseudo: "Joanna", score: 556 },
+  { pseudo: "Francois", score: 1 },
+  { pseudo: "Vincent", score: 1024 },
+];
+
+/**
+ * methode qui affiche la liste des joueurs au tableau des scores
+ */
+function displayPlayerSorted(arrPlayers) {
+  arrPlayers
+    .sort((a, b) => {
+      return a.score - b.score;
+    })
+    .map((player) => {
+      tbody.innerHTML += `<tr>
+        <th scope="col">classement</th>
+        <th scope="col">${player.pseudo}</th>
+        <th scope="col">${player.score}</th>
+      </tr>`;
+    });
+}
 
 /**
  * méthode qui prend en param un tableau d'image et créé une div avec une image
@@ -108,6 +132,7 @@ function compareCards(card) {
 }
 
 // Début du jeu //
+displayPlayerSorted(arrPlayers);
 const newArr = shuffleArr(arrSrc);
 createCard(newArr);
 
