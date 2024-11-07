@@ -29,22 +29,23 @@ const arrSrc = [
 ];
 
 const arrPlayers = [
-  { pseudo: "Joanna", score: 556 },
-  { pseudo: "Francois", score: 1 },
-  { pseudo: "Vincent", score: 1024 },
+  { pseudo: "Joanna", score: 556, timer: 55 },
+  { pseudo: "Francois", score: 100, timer: 100 },
+  { pseudo: "Vincent", score: 1024, timer: 50 },
 ];
 
 /**
  * methode qui affiche la liste des joueurs au tableau des scores
  */
 function displayPlayerSorted(arrPlayers) {
-  arrPlayers
+  [...arrPlayers]
     .sort((a, b) => {
       return a.score - b.score;
     })
     .map((player, index) => {
       tbody.innerHTML += `<tr>
-        <th scope="col">${index}</th>
+        <th scope="col">${index + 1}</th>
+        <th scope="col">${player.timer}</th>
         <th scope="col">${player.pseudo}</th>
         <th scope="col">${player.score}</th>
       </tr>`;
@@ -60,7 +61,6 @@ function createCard(arrSrc) {
   for (let index = 0; index < arrSrc.length; index++) {
     let div = document.createElement("div");
     div.dataset.id = index;
-
     div.classList.add("back_card");
     container_cards.append(div);
   }
@@ -165,9 +165,10 @@ startGameBtn.addEventListener("click", function () {
 
       if (totalCardVisible === 12) {
         stopTimer();
-        let player = { pseudo: textPseudo, score: scores };
-        const addPlayer = [...arrPlayers, player];
-        displayPlayerSorted(addPlayer);
+        let player = { pseudo: textPseudo, score: scores, timer: seconds };
+        arrPlayers.push(player);
+        tbody.innerHTML = "";
+        displayPlayerSorted(arrPlayers);
       }
     });
   }
