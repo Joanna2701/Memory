@@ -9,13 +9,20 @@
   </head>
 
   <body>
+    <div class="container_batte"><img src="./img//batte.png" alt="" /></div>
+    <div class="container_citrouille">
+      <img src="./img//citrouille.png" alt="" />
+    </div>
     <div class="displayGame">
-      <h5>Bonjour ! <span id="pseudo"></span></h5>
-      <div>
-        <p>Timer: <span id="timer"></span></p>
-        <p>Tentatives: <span id="scores">0</span></p>
+      <div id="container_header">
+        <h5>Bonjour ! <span id="pseudo"></span></h5>
+        <div>
+          <p>Timer: <span id="timer"></span></p>
+          <p>Tentatives: <span id="scores">0</span></p>
+        </div>
+        <button id="startGame">Start Game</button>
       </div>
-      <div><button id="startGame">Start Game</button></div>
+
       <div id="container_aside">
         <div id="container_cards"></div>
 
@@ -36,8 +43,10 @@
       </div>
     </div>
     <div id="modalPseudo">
-      <label for="pseudo">Entrer votre pseudo !</label>
-      <input type="text" name="modalPseudo" id="inputPseudo" />
+      <div>
+        <label for="pseudo">Entrer votre pseudo !</label>
+        <input type="text" name="modalPseudo" id="inputPseudo" />
+      </div>
       <button id="validerPseudo">Valider</button>
     </div>
   </body>

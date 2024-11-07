@@ -43,6 +43,7 @@ const arrPlayers = [
 function displayGameOrModal() {
   if (textPseudo.textContent !== "" && textPseudo.textContent !== undefined) {
     modalPseudo.remove("#modalPseudo");
+    document.querySelector(".displayGame").classList.add("main");
     document.querySelector(".displayGame").classList.remove("displayGame");
   } else return;
 }
