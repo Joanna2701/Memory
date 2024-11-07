@@ -1,6 +1,11 @@
 let container_cards = document.querySelector("#container_cards");
-let cardVisible= [];
+let cardVisible = [];
 let startGameBtn = document.querySelector("#startGame");
+let timerInterval = 0;
+let seconds = 0;
+let timer = document.querySelector("#timer");
+let totalCardVisible = 0;
+
 const arrSrc = [
   "./img/batte.png",
   "./img/bonbons.png",
@@ -15,6 +20,7 @@ const arrSrc = [
   "./img/cyclope.png",
   "./img/monstre.png",
 ];
+
 /**
  * méthode qui prend en param un tableau d'image et créé une div avec une image
  * ajouté dans un container
@@ -31,6 +37,23 @@ function createCard(arrSrc) {
 }
 
 /**
+ * methode qui cree et demarre un timer
+ */
+function startTimer() {
+  timerInterval = setInterval(() => {
+    seconds++;
+    timer.textContent = seconds;
+  }, 1000);
+}
+
+/**
+ * methode qui arrete le startTimer
+ */
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+/**
  * methode qui prend en param un tableau et le mélange
  * @param {*} arr
  */
@@ -44,34 +67,35 @@ function shuffleArr(arr) {
 }
 
 /**
- * 
+ *
  */
 function compareCards(card) {
   cardVisible.push(card);
 
-if (cardVisible.length === 2) {
-  const [firstCard, secondCard] = cardVisible;
+  if (cardVisible.length === 2) {
+    const [firstCard, secondCard] = cardVisible;
 
-  if (firstCard.style.backgroundImage === secondCard.style.backgroundImage) {
-    firstCard.pointerEvents = "none";
-    secondCard.pointerEvents = "none";
+    if (firstCard.style.backgroundImage === secondCard.style.backgroundImage) {
+      firstCard.pointerEvents = "none";
+      secondCard.pointerEvents = "none";
 
-    cardVisible= [];
+      totalCardVisible += 2;
+      console.log(totalCardVisible);
+      cardVisible = [];
+    }
+  } else if (cardVisible.length === 3) {
+    const [firstCard, secondCard] = cardVisible;
+
+    firstCard.style.backgroundImage = "";
+    firstCard.classList.remove("card");
+    firstCard.classList.add("back_card");
+
+    secondCard.style.backgroundImage = "";
+    secondCard.classList.remove("card");
+    secondCard.classList.add("back_card");
+
+    cardVisible = [card];
   }
-}
-else if(cardVisible.length === 3) {
-  const [firstCard, secondCard] = cardVisible;
-
-  firstCard.style.backgroundImage = "";
-  firstCard.classList.remove("card");
-  firstCard.classList.add("back_card");
-
-  secondCard.style.backgroundImage = "";
-  secondCard.classList.remove("card");
-  secondCard.classList.add("back_card");
-
-  cardVisible = [card];
-}
 }
 
 const newArr = shuffleArr(arrSrc);
@@ -86,7 +110,7 @@ const cards = container.querySelectorAll("div");
 //     let index = card.getAttribute("data-id");
 
 //     if (card.classList.contains("card")) return;
- 
+
 //       card.style.backgroundImage = `url(${arrSrc[index]})`;
 //       card.classList.remove("back_card");
 //       card.classList.add("card");
@@ -95,28 +119,33 @@ const cards = container.querySelectorAll("div");
 //   });
 // }
 
-startGameBtn.addEventListener('click',function() {
-  // Evenement au clic
-  cards.forEach(card=> {
+startGameBtn.addEventListener("click", function () {
+  cards.forEach((card) => {
     card.style.backgroundImage = "";
     card.classList.remove("card");
     card.classList.add("back_card");
-  })
+  });
 
-for (let card of cards) {
-  card.addEventListener("click", function () {
-    let index = card.getAttribute("data-id");
+  startTimer();
+  startGameBtn.textContent = "Rejouer";
 
-    if (card.classList.contains("card")) return;
- 
+  for (let card of cards) {
+    card.addEventListener("click", function () {
+      let index = card.getAttribute("data-id");
+
+      if (card.classList.contains("card")) return;
+
       card.style.backgroundImage = `url(${arrSrc[index]})`;
       card.classList.remove("back_card");
       card.classList.add("card");
       compareCards(card);
 
-  });
-}
-})
+      if (totalCardVisible === 12) {
+        stopTimer();
+      }
+    });
+  }
+});
 
 // On affiche les cartes au clic
 //test timer
