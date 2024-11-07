@@ -9,11 +9,43 @@
   </head>
 
   <body>
+    <h5>Bonjour ! <span id="pseudo"></span></h5>
     <div>
       <p>Timer: <span id="timer"></span></p>
+      <p>Tentatives: <span id="scores">0</span></p>
     </div>
     <div><button id="startGame">Start Game</button></div>
-    <div id="container_cards"></div>
+    <div id="container_aside">
+      <div id="container_cards"></div>
+
+      <aside>
+        <table>
+          <caption>
+            Tableau des scores
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">classement</th>
+              <th scope="col">pseudo</th>
+              <th scope="col">score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Chris</th>
+              <td>HTML tables</td>
+              <td>22</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row" colspan="2">Tableau des scores</th>
+              <td>33</td>
+            </tr>
+          </tfoot>
+        </table>
+      </aside>
+    </div>
   </body>
 
   <script src="main.js"></script>

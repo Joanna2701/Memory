@@ -5,6 +5,12 @@ let timerInterval = 0;
 let seconds = 0;
 let timer = document.querySelector("#timer");
 let totalCardVisible = 0;
+let getPseudo = prompt("Pseudo ?");
+let textPseudo = (document.querySelector("#pseudo").textContent = getPseudo);
+let scores = 0;
+let textScores = document.querySelector("#scores");
+let container = document.querySelector("#container_cards");
+const cards = container.querySelectorAll("div");
 
 const arrSrc = [
   "./img/batte.png",
@@ -67,7 +73,7 @@ function shuffleArr(arr) {
 }
 
 /**
- *
+ * méthode qui compare deux carte si elles sont identiques ou pas
  */
 function compareCards(card) {
   cardVisible.push(card);
@@ -80,7 +86,8 @@ function compareCards(card) {
       secondCard.pointerEvents = "none";
 
       totalCardVisible += 2;
-      console.log(totalCardVisible);
+      scores += 1;
+      textScores.textContent = scores;
       cardVisible = [];
     }
   } else if (cardVisible.length === 3) {
@@ -94,38 +101,28 @@ function compareCards(card) {
     secondCard.classList.remove("card");
     secondCard.classList.add("back_card");
 
+    scores += 1;
+    textScores.textContent = scores;
     cardVisible = [card];
   }
 }
 
+// Début du jeu //
 const newArr = shuffleArr(arrSrc);
 createCard(newArr);
 
-let container = document.querySelector("#container_cards");
-const cards = container.querySelectorAll("div");
-
-// Evenement au clic
-// for (let card of cards) {
-//   card.addEventListener("click", function () {
-//     let index = card.getAttribute("data-id");
-
-//     if (card.classList.contains("card")) return;
-
-//       card.style.backgroundImage = `url(${arrSrc[index]})`;
-//       card.classList.remove("back_card");
-//       card.classList.add("card");
-//       compareCards(card);
-
-//   });
-// }
-
 startGameBtn.addEventListener("click", function () {
+  stopTimer();
+  timerInterval = 0;
+  timer.textContent = 0;
+
   cards.forEach((card) => {
     card.style.backgroundImage = "";
     card.classList.remove("card");
     card.classList.add("back_card");
   });
 
+  textScores.textContent = 0;
   startTimer();
   startGameBtn.textContent = "Rejouer";
 
