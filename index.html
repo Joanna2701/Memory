@@ -9,29 +9,36 @@
   </head>
 
   <body>
-    <h5>Bonjour ! <span id="pseudo"></span></h5>
-    <div>
-      <p>Timer: <span id="timer"></span></p>
-      <p>Tentatives: <span id="scores">0</span></p>
-    </div>
-    <div><button id="startGame">Start Game</button></div>
-    <div id="container_aside">
-      <div id="container_cards"></div>
+    <div class="displayGame">
+      <h5>Bonjour ! <span id="pseudo"></span></h5>
+      <div>
+        <p>Timer: <span id="timer"></span></p>
+        <p>Tentatives: <span id="scores">0</span></p>
+      </div>
+      <div><button id="startGame">Start Game</button></div>
+      <div id="container_aside">
+        <div id="container_cards"></div>
 
-      <aside>
-        <h3>Classement</h3>
-        <table>
-          <thead>
-            <tr>
-              <th scope="row">Position</th>
-              <th scope="row">Temps</th>
-              <td>Pseudo</td>
-              <td>Tentatives</td>
-            </tr>
-          </thead>
-          <tbody id="tbody"></tbody>
-        </table>
-      </aside>
+        <aside>
+          <h3>Classement</h3>
+          <table>
+            <thead>
+              <tr>
+                <th scope="row">Position</th>
+                <th scope="row">Temps</th>
+                <td>Pseudo</td>
+                <td>Tentatives</td>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </aside>
+      </div>
+    </div>
+    <div id="modalPseudo">
+      <label for="pseudo">Entrer votre pseudo !</label>
+      <input type="text" name="modalPseudo" id="inputPseudo" />
+      <button id="validerPseudo">Valider</button>
     </div>
   </body>
 

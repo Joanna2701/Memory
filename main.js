@@ -5,13 +5,15 @@ let timerInterval = 0;
 let seconds = 0;
 let timer = document.querySelector("#timer");
 let totalCardVisible = 0;
-let getPseudo = prompt("Pseudo ?");
-let textPseudo = (document.querySelector("#pseudo").textContent = getPseudo);
+
+let textPseudo = document.querySelector("#pseudo");
 let scores = 0;
 let textScores = document.querySelector("#scores");
 let container = document.querySelector("#container_cards");
 const cards = container.querySelectorAll("div");
 const tbody = document.querySelector("#tbody");
+let btnPseudo = document.querySelector("#validerPseudo");
+let modalPseudo = document.querySelector("#modalPseudo");
 
 const arrSrc = [
   "./img/batte.png",
@@ -33,6 +35,17 @@ const arrPlayers = [
   { pseudo: "Francois", score: 100, timer: 100 },
   { pseudo: "Vincent", score: 1024, timer: 50 },
 ];
+
+/**
+ * methode qui affiche le jeu si il y a un pseudo
+ * sinon demande un pseudo
+ */
+function displayGameOrModal() {
+  if (textPseudo.textContent !== "" && textPseudo.textContent !== undefined) {
+    modalPseudo.remove("#modalPseudo");
+    document.querySelector(".displayGame").classList.remove("displayGame");
+  } else return;
+}
 
 /**
  * methode qui affiche la liste des joueurs au tableau des scores
@@ -135,6 +148,11 @@ function compareCards(card) {
 displayPlayerSorted(arrPlayers);
 createCard(arrSrc);
 
+btnPseudo.addEventListener("click", function () {
+  textPseudo.textContent = document.querySelector("#inputPseudo").value;
+  displayGameOrModal();
+});
+
 startGameBtn.addEventListener("click", function () {
   stopTimer();
   seconds = 0;
@@ -165,7 +183,11 @@ startGameBtn.addEventListener("click", function () {
 
       if (totalCardVisible === 12) {
         stopTimer();
-        let player = { pseudo: textPseudo, score: scores, timer: seconds };
+        let player = {
+          pseudo: textPseudo.textContent,
+          score: scores,
+          timer: seconds,
+        };
         arrPlayers.push(player);
         tbody.innerHTML = "";
         displayPlayerSorted(arrPlayers);
