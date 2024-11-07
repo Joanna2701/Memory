@@ -42,9 +42,9 @@ function displayPlayerSorted(arrPlayers) {
     .sort((a, b) => {
       return a.score - b.score;
     })
-    .map((player) => {
+    .map((player, index) => {
       tbody.innerHTML += `<tr>
-        <th scope="col">classement</th>
+        <th scope="col">${index}</th>
         <th scope="col">${player.pseudo}</th>
         <th scope="col">${player.score}</th>
       </tr>`;
@@ -165,6 +165,9 @@ startGameBtn.addEventListener("click", function () {
 
       if (totalCardVisible === 12) {
         stopTimer();
+        let player = { pseudo: textPseudo, score: scores };
+        const addPlayer = [...arrPlayers, player];
+        displayPlayerSorted(addPlayer);
       }
     });
   }
