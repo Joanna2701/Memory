@@ -85,13 +85,13 @@ function createCard(arrSrc) {
  * methode qui fait apparaitre une video de sorciere
  * dans le body
  */
-function displayGifSorcery() {
+function displayGifSorcery(sorceryGif, timerStart, timerEnd) {
   setTimeout(() => {
-    body.classList.add("background_body");
-  }, 3000);
+    body.classList.add(sorceryGif);
+  }, timerStart);
   setTimeout(() => {
-    body.classList.remove("background_body");
-  }, 10000);
+    body.classList.remove(sorceryGif);
+  }, timerEnd);
 }
 
 /**
@@ -181,7 +181,9 @@ btnPseudo.addEventListener("click", function () {
 });
 
 startGameBtn.addEventListener("click", function () {
-  displayGifSorcery();
+  displayGifSorcery("background_body", 6000, 13000);
+  displayGifSorcery("background_body_sorcery", 20000, 22000);
+
   stopTimer();
   rotateBoard();
   seconds = 0;
