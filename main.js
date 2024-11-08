@@ -14,6 +14,7 @@ const cards = container.querySelectorAll("div");
 const tbody = document.querySelector("#tbody");
 let btnPseudo = document.querySelector("#validerPseudo");
 let modalPseudo = document.querySelector("#modalPseudo");
+let body = document.querySelector("body");
 
 const arrSrc = [
   "./img/batte.png",
@@ -78,6 +79,19 @@ function createCard(arrSrc) {
     div.classList.add("back_card");
     container_cards.append(div);
   }
+}
+
+/**
+ * methode qui fait apparaitre une video de sorciere
+ * dans le body
+ */
+function displayGifSorcery() {
+  setTimeout(() => {
+    body.classList.add("background_body");
+  }, 3000);
+  setTimeout(() => {
+    body.classList.remove("background_body");
+  }, 10000);
 }
 
 /**
@@ -167,8 +181,7 @@ btnPseudo.addEventListener("click", function () {
 });
 
 startGameBtn.addEventListener("click", function () {
-  console.log("tewt");
-
+  displayGifSorcery();
   stopTimer();
   rotateBoard();
   seconds = 0;
