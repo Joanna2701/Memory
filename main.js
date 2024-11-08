@@ -5,7 +5,7 @@ let timerInterval = 0;
 let seconds = 0;
 let timer = document.querySelector("#timer");
 let totalCardVisible = 0;
-
+let lvl = document.querySelector("#lvl");
 let textPseudo = document.querySelector("#pseudo");
 let scores = 0;
 let textScores = document.querySelector("#scores");
@@ -98,6 +98,18 @@ function stopTimer() {
 }
 
 /**
+ * methode qui permet de faire tourner le board
+ * chaque 5s
+ */
+
+function rotateBoard() {
+  console.log(typeof lvl.value);
+  if (lvl.value === "2") container_cards.classList.add("rotateContainer");
+  else if (lvl.value === "1")
+    container_cards.classList.remove("rotateContainer");
+}
+
+/**
  * methode qui prend en param un tableau et le mélange
  * @param {*} arr
  */
@@ -155,7 +167,10 @@ btnPseudo.addEventListener("click", function () {
 });
 
 startGameBtn.addEventListener("click", function () {
+  console.log("tewt");
+
   stopTimer();
+  rotateBoard();
   seconds = 0;
   timer.textContent = 0;
   totalCardVisible = 0;
