@@ -199,6 +199,7 @@ startGameBtn.addEventListener("click", function () {
 
       if (totalCardVisible === 12) {
         stopTimer();
+        container_cards.classList.remove("rotateContainer");
         let player = {
           pseudo: textPseudo.textContent,
           score: scores,
