@@ -16,6 +16,37 @@ let btnPseudo = document.querySelector("#validerPseudo");
 let modalPseudo = document.querySelector("#modalPseudo");
 let body = document.querySelector("body");
 
+const fetchData = async () => {
+  try {
+    const getPlayers = await fetch(
+      "https://backend-memory-card.vercel.app/?vercelToolbarCode=PKSf5xgisn1iyGD"
+    );
+    let arrPlayers = await getPlayers.json();
+    return arrPlayers.players;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const postDataPlayer = async (player) => {
+  try {
+    let postPlayer = await fetch(
+      "https://vercel.com/jesapelgrubs-projects/backend-memory-card/addplayer",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: JSON.stringify(player),
+      }
+    );
+    const response = await postPlayer.json();
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const arrSrc = [
   "./img/batte.png",
   "./img/bonbons.png",
@@ -29,12 +60,6 @@ const arrSrc = [
   "./img/citrouille.png",
   "./img/cyclope.png",
   "./img/monstre.png",
-];
-
-const arrPlayers = [
-  { pseudo: "Joanna", score: 556, timer: 55 },
-  { pseudo: "Francois", score: 100, timer: 100 },
-  { pseudo: "Vincent", score: 1024, timer: 50 },
 ];
 
 /**
@@ -52,19 +77,25 @@ function displayGameOrModal() {
 /**
  * methode qui affiche la liste des joueurs au tableau des scores
  */
-function displayPlayerSorted(arrPlayers) {
-  [...arrPlayers]
-    .sort((a, b) => {
-      return a.score - b.score;
-    })
-    .map((player, index) => {
-      tbody.innerHTML += `<tr>
+async function displayPlayerSorted() {
+  try {
+    const dataPlayers = await fetchData();
+
+    dataPlayers
+      .sort((a, b) => {
+        return a.score - b.score;
+      })
+      .map((player, index) => {
+        tbody.innerHTML += `<tr>
         <th scope="col">${index + 1}</th>
-        <th scope="col">${player.timer}</th>
+        <th scope="col">${player.attempt}</th>
         <th scope="col">${player.pseudo}</th>
         <th scope="col">${player.score}</th>
       </tr>`;
-    });
+      });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 /**
@@ -117,7 +148,6 @@ function stopTimer() {
  */
 
 function rotateBoard() {
-  console.log(typeof lvl.value);
   if (lvl.value === "2") container_cards.classList.add("rotateContainer");
   else if (lvl.value === "1")
     container_cards.classList.remove("rotateContainer");
@@ -172,7 +202,7 @@ function compareCards(card) {
 }
 
 // Début du jeu //
-displayPlayerSorted(arrPlayers);
+displayPlayerSorted();
 createCard(arrSrc);
 
 btnPseudo.addEventListener("click", function () {
@@ -218,11 +248,11 @@ startGameBtn.addEventListener("click", function () {
         let player = {
           pseudo: textPseudo.textContent,
           score: scores,
-          timer: seconds,
+          attempt: seconds,
         };
-        arrPlayers.push(player);
+        postDataPlayer(player);
         tbody.innerHTML = "";
-        displayPlayerSorted(arrPlayers);
+        displayPlayerSorted();
       }
     });
   }
